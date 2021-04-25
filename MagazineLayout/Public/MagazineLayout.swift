@@ -909,13 +909,16 @@ public final class MagazineLayout: UICollectionViewLayout {
 
     let refreshControlHeight: CGFloat
     #if os(iOS)
-    if
-      let refreshControl = currentCollectionView.refreshControl,
-      refreshControl.isRefreshing
-    {
-      refreshControlHeight = refreshControl.bounds.height
+    if #available(iOS 10, *) {
+        if let refreshControl = currentCollectionView.refreshControl,
+           refreshControl.isRefreshing
+        {
+            refreshControlHeight = refreshControl.bounds.height
+        } else {
+            refreshControlHeight = 0
+        }
     } else {
-      refreshControlHeight = 0
+        refreshControlHeight = 0
     }
     #else
     refreshControlHeight = 0
